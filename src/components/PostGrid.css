@@ -1,0 +1,29 @@
+.post-grid {
+  font-family: "Arial", sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.post-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-item p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.post-label {
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
