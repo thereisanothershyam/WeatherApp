@@ -9,7 +9,7 @@ const PostGrid = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://jsonplaceholder.typicode.com/users"
+          "http://localhost:8000/message"
         );
         setPosts(response.data);
       } catch (error) {
@@ -23,6 +23,7 @@ const PostGrid = () => {
   return (
     <div className="post-grid">
       <h3>Employees Details</h3>
+      
       {posts.map((post) => (
         <div key={post.id} className="post-item">
           <p>

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./wheather.css";
 
+
 const Weather = () => {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
   const [isError, setIsError] = useState(false);
+ 
 
   const getWeather = async () => {
     try {
@@ -26,7 +28,7 @@ const Weather = () => {
 
   return (
     <div className="weather-container">
-      <h2>Weather App</h2>
+      <h2>Weather App </h2>
       <label>
         <span style={{ fontWeight: "bold" }}>Enter City:</span>
         <input
