@@ -8,12 +8,16 @@ const Weather = () => {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
   const [isError, setIsError] = useState(false);
+  {
+   var REACT_APP_API_KEY  = '7d693d5bbb0e5bf0b0be87a98513892e';
+  }
+  
  
 
   const getWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7d693d5bbb0e5bf0b0be87a98513892e`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${REACT_APP_API_KEY}`
       );
       setWeather(response.data);
       setError("");
