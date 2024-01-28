@@ -2,9 +2,34 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./PostGrid.css";
 
+import { CSVLink } from "react-csv";
+
 const PostGrid = () => {
   const [posts, setPosts] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const camelCase = str => {
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
+  };
+  const data = [
+    { firstname: "jill", lastname: "smith", age: 22 },
+    { firstname: "david", lastname: "warner", age: 23 },
+    { firstname: "nick", lastname: "james", age: 26 }
+  ];
+  const filteredData = posts.map(({ name, username, email, company }) => ({ name, username: username, email: email, city: company.city }));
+  //const filteredData = posts.map(({ name }) => ({ name }),({ username  }) => ({ username  }),({ email }) => ({ email })); 
+  // const filteredData = data => {
+  //   // Get column names
+  //   const columns = Object.keys(data[0]);
+  //   let headers = [];
+  //   columns.forEach((col, idx) => {
+  //     if (col !== "username") {
+  //       // OR if (idx !== 0)
+  //       headers.push({ label: camelCase(col), key: col });
+  //     }
+  //   })
+  // }
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,45 +52,49 @@ const PostGrid = () => {
   return (
     <div className="post-grid">
       <h3>Employees Details</h3>
-      
-      {posts.map((post) => (
-        <div key={post.id} className="post-item">
-          <p>
-            <span className="post-label">UserName:</span> {post.username}
-            <br />
-            <span className="post-label">Email:</span> {post.email}
-            <br />
-            <span className="post-label">Company:</span> {post.company.name}
-            <br />
-          </p>
-        </div>
-      ))}
-    
+
+      {
+        posts.map((post) => (
+          <div key={post.id} className="post-item">
+            <p>
+              <span className="post-label">UserName:</span> {post.username}
+              <br />
+              <span className="post-label">Email:</span> {post.email}
+              <br />
+              <span className="post-label">Company:</span> {post.company.name}
+              <br />
+            </p>
+          </div>
+        ))}
+
       <a href="#" onClick={toggleCollapse}>
         {isCollapsed ? 'Show Table' : 'Collapse Table'}
       </a>
-       <table className={isCollapsed ? 'my-table collapsed' : 'my-table'}>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Company Name</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        {posts.map((post,index) => (
-          <tr key={post.id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
-            <td>{post.username}</td>
-            <td>{post.company.name}</td>
-            <td>{post.email}</td>
+      <CSVLink data={filteredData} filename={"test.csv"}>
+        Download as CSV
+      </CSVLink>
+      <table className={isCollapsed ? 'my-table collapsed' : 'my-table'}>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Company Name</th>
+            <th>Email</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {posts.map((post, index) => (
+            <tr key={post.id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
+              <td>{post.username}</td>
+              <td>{post.company.name}</td>
+              <td>{post.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-    
-    
-    
+
+
+
   );
 };
 
