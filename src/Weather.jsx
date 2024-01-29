@@ -9,10 +9,10 @@ const Weather = () => {
   const [error, setError] = useState("");
   const [isError, setIsError] = useState(false);
   {
-   var REACT_APP_API_KEY  = '7d693d5bbb0e5bf0b0be87a98513892e';
+    var REACT_APP_API_KEY = '7d693d5bbb0e5bf0b0be87a98513892e';
   }
-  
- 
+
+
 
   const getWeather = async () => {
     try {
@@ -50,7 +50,7 @@ const Weather = () => {
           <h3>
             {weather.name}, {weather.sys.country}
           </h3>
-          <p>Temperature: {weather.main.temp} °C</p>
+          <p>Temperature: {weather.main.temp - 273.15} °C</p>
           <p>Weather: {weather.weather[0].description}</p>
         </div>
       )}
