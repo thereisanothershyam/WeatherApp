@@ -32,9 +32,7 @@ describe("PostGrid component", () => {
 
   it("renders the component", async () => {
     axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
-    // mockAxios
-    //   .onGet("http://localhost:8000/message")
-    //   .reply(200, mockData);
+
 
     const renderScreen = render(<PostGrid />);
 
@@ -51,15 +49,18 @@ describe("PostGrid component", () => {
   });
 
   // it("handles API error", async () => {
-  //   mockAxios.onGet("https://jsonplaceholder.typicode.com/users").reply(500);
+  //   axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
 
-  //   render(<PostGrid />);
 
-  //   // Wait for error handling
+  //   const renderScreen = render(<PostGrid />);
+
+  //   // Wait for data to be loaded
   //   await waitFor(() => {
-  //     expect(screen.getByText("Error fetching data:")).toBeInTheDocument();
+  //     expect(renderScreen.baseElement.innerHTML.toString().includes('Error fetching data:')).toBeTruthy();
   //   });
 
-  //   // Additional error handling assertions can be added
-  // });
+
+});
+
+
 });

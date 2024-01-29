@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./PostGrid.css";
 
 import { CSVLink } from "react-csv";
@@ -67,13 +68,21 @@ const PostGrid = () => {
           </div>
         ))}
 
-      <a href="#" onClick={toggleCollapse}>
-        {isCollapsed ? 'Show Table' : 'Collapse Table'}
-      </a>
-      <CSVLink data={filteredData} filename={"test.csv"}>
-        Download as CSV
-      </CSVLink>
-      <table className={isCollapsed ? 'my-table collapsed' : 'my-table'}>
+
+      <table width="100%">
+        <tr>
+          <td align="left">
+            <a href="#" onClick={toggleCollapse}>
+              {isCollapsed ? 'Show Table View' : 'Collapse Table view'}
+            </a>
+          </td>
+          <td align="right">
+            <CSVLink data={filteredData} filename={"test.csv"} >
+              Download as CSV
+            </CSVLink>
+          </td></tr>
+      </table>
+      <table className={isCollapsed ? 'my-table collapsed' : 'table table-striped'}>
         <thead>
           <tr>
             <th>Name</th>
