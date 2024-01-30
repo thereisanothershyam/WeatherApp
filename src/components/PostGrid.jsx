@@ -7,36 +7,24 @@ import { CSVLink } from "react-csv";
 
 const PostGrid = () => {
   const [posts, setPosts] = useState([]);
+  const [users, setusers] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const camelCase = str => {
-    return str.substring(0, 1).toUpperCase() + str.substring(1);
-  };
+
   const data = [
     { firstname: "jill", lastname: "smith", age: 22 },
     { firstname: "david", lastname: "warner", age: 23 },
     { firstname: "nick", lastname: "james", age: 26 }
   ];
   const filteredData = posts.map(({ name, username, email, company }) => ({ name, username: username, email: email, city: company.city }));
-  //const filteredData = posts.map(({ name }) => ({ name }),({ username  }) => ({ username  }),({ email }) => ({ email })); 
-  // const filteredData = data => {
-  //   // Get column names
-  //   const columns = Object.keys(data[0]);
-  //   let headers = [];
-  //   columns.forEach((col, idx) => {
-  //     if (col !== "username") {
-  //       // OR if (idx !== 0)
-  //       headers.push({ label: camelCase(col), key: col });
-  //     }
-  //   })
-  // }
+
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/message"
+          "http://localhost:8000/usermessage"
         );
         setPosts(response.data);
       } catch (error) {
@@ -45,6 +33,21 @@ const PostGrid = () => {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userresponse = await axios.get(
+          "http://localhost:8000/getUsers"
+        );
+        setusers(userresponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchUserData();
   }, []);
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -55,14 +58,14 @@ const PostGrid = () => {
       <h3>Employees Details</h3>
 
       {
-        posts.map((post) => (
-          <div key={post.id} className="post-item">
+        users.map((user) => (
+          <div key={user._id} className="post-item">
             <p>
-              <span className="post-label">UserName:</span> {post.username}
+              <span className="post-label">UserName:</span> {user.firstname}
               <br />
-              <span className="post-label">Email:</span> {post.email}
+              <span className="post-label">UserLastName:</span> {user.lastname}
               <br />
-              <span className="post-label">Company:</span> {post.company.name}
+              <span className="post-label">User Age:</span> {user.age}
               <br />
             </p>
           </div>

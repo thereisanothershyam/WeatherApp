@@ -1,19 +1,39 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const api_helper = require('./API_helper')
+const api_helper = require("./API_helper");
+const { default: mongoose } = require("mongoose");
 
 app.use(cors());
 app.use(express.json());
+mongoose.connect("mongodb://localhost:27017/CRUD");
+const UserSchema = new mongoose.Schema({
+  firstname: String,
+  lastname: String,
+  age: String,
+});
 
-app.get("/message", (req, res) => {
-    api_helper.make_API_call('https://jsonplaceholder.typicode.com/users')
-    .then(response => {
-        res.json(response)
+const UserModel = mongoose.model("users", UserSchema);
+
+app.get("/getUsers", (req, res) => {
+  UserModel.find({})
+    .then(function (users) {
+      res.json(users);
     })
-    .catch(error => {
-        res.send(error)
+    .catch(function (error) {
+      console.log(error);
+    });
+});
+
+app.get("/usermessage", (req, res) => {
+  api_helper
+    .make_API_call("https://jsonplaceholder.typicode.com/users")
+    .then((response) => {
+      res.json(response);
     })
+    .catch((error) => {
+      res.send(error);
+    });
 });
 
 app.listen(8000, () => {
