@@ -17,7 +17,14 @@ const Weather = () => {
   const getWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${REACT_APP_API_KEY}`
+        "http://localhost:8000/getWeatherAPI", {
+        params: {
+          city: { city }
+
+        },
+
+      }
+
       );
       setWeather(response.data);
       setError("");

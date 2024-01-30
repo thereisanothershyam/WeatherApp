@@ -3,6 +3,11 @@ const cors = require("cors");
 const app = express();
 const api_helper = require("./API_helper");
 const { default: mongoose } = require("mongoose");
+require("dotenv").config();
+
+{
+  var API_KEY = process.env.REACT_APP_API_KEY;
+}
 
 app.use(cors());
 app.use(express.json());
@@ -14,6 +19,23 @@ const UserSchema = new mongoose.Schema({
 });
 
 const UserModel = mongoose.model("users", UserSchema);
+
+app.get("/getWeatherAPI", (req, res) => {
+  const { city } = req.query;
+  api_helper
+    .make_API_call(
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+        city.city +
+        "&appid=" +
+        API_KEY
+    )
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
 
 app.get("/getUsers", (req, res) => {
   UserModel.find({})

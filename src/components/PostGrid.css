@@ -42,7 +42,11 @@ h3 {
 .my-table th {
   background-color: #f2f2f2;
 }
-.collapsed tbody {
+.collapsed tbody  {
+  display: none;
+}
+
+.collapsed thead  {
   display: none;
 }
 .even-row {
