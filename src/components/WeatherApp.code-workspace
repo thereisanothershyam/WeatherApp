@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "NHSWeatherAPP",
+			"path": "../../../../Thiru/NHS/NHSWeatherAPP"
+		}
+	],
+	"settings": {}
+}
