@@ -4,13 +4,16 @@ const app = express();
 const api_helper = require("./API_helper");
 const { default: mongoose } = require("mongoose");
 require("dotenv").config();
-
+//getting values fron config file- Start
 {
   var API_KEY = process.env.REACT_APP_API_KEY;
 }
-
+//getting values fron config file- End
+//implemented cors for domain security in application - Start
 app.use(cors());
+//implemented cors for domain security in application - End
 app.use(express.json());
+//Implemented MongoDB connectivity and creating userModel - Start
 mongoose.connect("mongodb://localhost:27017/CRUD");
 const UserSchema = new mongoose.Schema({
   firstname: String,
@@ -19,7 +22,8 @@ const UserSchema = new mongoose.Schema({
 });
 
 const UserModel = mongoose.model("users", UserSchema);
-
+//Implemented MongoDB connectivity and creating userModel - End
+// Call API - Start
 app.get("/getWeatherAPI", (req, res) => {
   const { city } = req.query;
   api_helper
@@ -57,6 +61,7 @@ app.get("/usermessage", (req, res) => {
       res.send(error);
     });
 });
+// Call API - End
 
 app.listen(8000, () => {
   console.log(`Server is running on port 8000.`);

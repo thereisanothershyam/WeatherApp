@@ -8,12 +8,10 @@ const Weather = () => {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
   const [isError, setIsError] = useState(false);
-  {
-    var REACT_APP_API_KEY = '7d693d5bbb0e5bf0b0be87a98513892e';
-  }
 
 
 
+  //Getting Weather data from Public hosted API - Starts
   const getWeather = async () => {
     try {
       const response = await axios.get(
@@ -27,8 +25,14 @@ const Weather = () => {
 
       );
       setWeather(response.data);
+
       setError("");
       setIsError(false);
+      if (response.data.cod === 400 || 404) {
+        setError(response.data.message);
+        setIsError(true);
+        setWeather(null);
+      }
     } catch (error) {
       console.error("Error fetching weather data:", error);
       setError(error.response.data.message);
@@ -36,17 +40,20 @@ const Weather = () => {
       setWeather(null);
     }
   };
+  //Getting Weather data from Public hosted API - End
 
   return (
     <div className="weather-container">
       <h2>Weather App </h2>
       <label>
         <span style={{ fontWeight: "bold" }}>Enter City:</span>
+        {/* passing the input value to node service call which will be send to public hosted API - Start */}
         <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
+        {/* passing the input value to node service call which will be send to public hosted API - End */}
       </label>
       <button style={{ backgroundColor: "lightBlue" }} onClick={getWeather}>
         Get Weather
@@ -61,6 +68,7 @@ const Weather = () => {
           <p>Weather: {weather.weather[0].description}</p>
         </div>
       )}
+      {/* handling error message  */}
       {error && (
         <div>
           <h2 className="error-message">{error}</h2>

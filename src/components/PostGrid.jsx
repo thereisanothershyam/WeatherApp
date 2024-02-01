@@ -11,15 +11,11 @@ const PostGrid = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
 
-  const data = [
-    { firstname: "jill", lastname: "smith", age: 22 },
-    { firstname: "david", lastname: "warner", age: 23 },
-    { firstname: "nick", lastname: "james", age: 26 }
-  ];
+
   const filteredData = posts.map(({ name, username, email, company }) => ({ name, username: username, email: email, city: company.city }));
 
 
-
+  //Getting user Message from Public hosted API which  binds to Grid - Start
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,7 +30,9 @@ const PostGrid = () => {
 
     fetchData();
   }, []);
+  //Getting user Message from Public hosted API which  binds to Grid - End
 
+  //Getting Test User details from Mongo DB which binds to list - Start
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -49,6 +47,7 @@ const PostGrid = () => {
 
     fetchUserData();
   }, []);
+  //Getting Test User details from Mongo DB which binds to list - End
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -79,12 +78,16 @@ const PostGrid = () => {
               {isCollapsed ? 'Show Table View' : 'Collapse Table view'}
             </a>
           </td>
+          {/* Implemented Download Excel Functionality - Start*/}
           <td align="right">
             <CSVLink data={filteredData} filename={"test.csv"} >
               Download as CSV
             </CSVLink>
-          </td></tr>
+          </td>
+          {/* Implemented Download Excel Functionality - End*/}
+        </tr>
       </table>
+      {/* Implemented CSS Framework - Bootstrap */}
       <table className={isCollapsed ? 'my-table collapsed' : 'table table-striped'}>
         <thead>
           <tr>

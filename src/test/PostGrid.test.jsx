@@ -1,6 +1,6 @@
 // src/components/PostGrid.test.js
 import React from "react";
-import { render, waitFor, screen } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import PostGrid from "../components/PostGrid";
@@ -29,7 +29,7 @@ describe("PostGrid component", () => {
   beforeEach(() => {
     mockAxios.reset();
   });
-
+  //Test case to verify html is formed/aligned to screen
   it("renders the component", async () => {
     axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
 
@@ -41,23 +41,8 @@ describe("PostGrid component", () => {
       expect(renderScreen.baseElement.innerHTML.toString().includes('Employees Details')).toBeTruthy();
     });
 
-    // expect(screen.getByText("UserName:")).toBeInTheDocument();
-    // expect(screen.getByText("Email:")).toBeInTheDocument();
-    // expect(screen.getByText("Company:")).toBeInTheDocument();
 
-    // Additional assertions can be added based on your component's content
   });
-
-  // it("handles API error", async () => {
-  //   axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
-
-
-  //   const renderScreen = render(<PostGrid />);
-
-  //   // Wait for data to be loaded
-  //   await waitFor(() => {
-  //     expect(renderScreen.baseElement.innerHTML.toString().includes('Error fetching data:')).toBeTruthy();
-  //   });
 
 
 });
