@@ -24,11 +24,14 @@ const Weather = () => {
       }
 
       );
-      setWeather(response.data);
+      if (response.data.cod === 200) {
+        setWeather(response.data);
+        console.log(response.data)
+        setError("");
+        setIsError(false);
+      }
 
-      setError("");
-      setIsError(false);
-      if (response.data.cod === 400 || 404) {
+      else if (response.data.cod === 400 || 404) {
         setError(response.data.message);
         setIsError(true);
         setWeather(null);
@@ -38,6 +41,7 @@ const Weather = () => {
       setError(error.response.data.message);
       setIsError(true);
       setWeather(null);
+      console.log('Hi')
     }
   };
   //Getting Weather data from Public hosted API - End
